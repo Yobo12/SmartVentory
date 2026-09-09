@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Categories — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/tables.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="app-main">
+      <header class="header" id="header-root"></header>
+
+      <main class="page-content">
+        <div class="table-toolbar fade-in">
+          <div class="table-search">
+            🔍
+            <input type="text" id="categories-search" placeholder="Search categories…" />
+          </div>
+          <div class="table-toolbar__spacer"></div>
+          <button class="btn btn-primary" id="add-category-btn">+ Add Category</button>
+        </div>
+
+        <div class="table-wrap" id="categories-table-wrap">
+          <div class="table-loading">Loading categories…</div>
+        </div>
+
+        <div class="table-pagination" id="categories-pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="js/categories.js"></script>
+</body>
+</html>

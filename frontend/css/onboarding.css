@@ -1,0 +1,160 @@
+/* ============================================================
+   Onboarding — welcome overlay + Driver.js retheme
+   ============================================================ */
+
+/* --- Welcome overlay (custom-built) --- */
+
+.onboarding-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+}
+
+.onboarding-welcome--visible {
+  opacity: 1;
+}
+
+.onboarding-welcome__card {
+  width: 100%;
+  max-width: 420px;
+  margin: var(--space-6);
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  background: rgba(19, 30, 51, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 32px rgba(59, 130, 246, 0.1);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 260ms var(--ease-out);
+}
+
+.onboarding-welcome--visible .onboarding-welcome__card {
+  transform: translateY(0) scale(1);
+}
+
+.onboarding-welcome__orb {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+}
+
+.onboarding-welcome__orb .neural-orb--sm {
+  width: 64px;
+  height: 64px;
+  animation: hero-panel-float 5s ease-in-out infinite;
+}
+
+.onboarding-welcome__card h2 {
+  font-size: 22px;
+  margin-bottom: var(--space-3);
+}
+
+.onboarding-welcome__card p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: var(--space-8);
+}
+
+.onboarding-welcome__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+/* --- Driver.js retheme: matches the app's glass/blue language
+   instead of the library's default light popover --- */
+
+.driver-popover.sv-onboarding-popover {
+  background: rgba(19, 30, 51, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 24px rgba(59, 130, 246, 0.12);
+  padding: var(--space-5);
+  max-width: 320px;
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-progress-text {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-footer button {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-shadow: none;
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-footer button:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary);
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-next-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dim) 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-close-btn {
+  color: var(--text-muted);
+}
+
+.driver-popover.sv-onboarding-popover .driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: rgba(19, 30, 51, 0.92);
+}
+.driver-popover.sv-onboarding-popover .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-bottom-color: rgba(19, 30, 51, 0.92);
+}
+.driver-popover.sv-onboarding-popover .driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: rgba(19, 30, 51, 0.92);
+}
+.driver-popover.sv-onboarding-popover .driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: rgba(19, 30, 51, 0.92);
+}
+
+/* Driver.js's highlight overlay ring — soften it to the app's blue
+   rather than the library's default. */
+.driver-active-element {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35) !important;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-welcome,
+  .onboarding-welcome__card,
+  .onboarding-welcome__orb .neural-orb--sm {
+    transition: none !important;
+    animation: none !important;
+  }
+}

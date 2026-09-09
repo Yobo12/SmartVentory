@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Insights — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/tables.css" />
+  <link rel="stylesheet" href="css/reports.css" />
+  <link rel="stylesheet" href="css/ai-insights.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="app-main">
+      <header class="header" id="header-root"></header>
+
+      <main class="page-content">
+        <div class="ai-health-grid fade-in">
+          <div class="card ai-health-card">
+            <div class="ai-health-card__value" id="health-low-stock">–</div>
+            <div class="ai-health-card__label">Low Stock Items</div>
+          </div>
+          <div class="card ai-health-card">
+            <div class="ai-health-card__value" id="health-restock">–</div>
+            <div class="ai-health-card__label">Restock Suggestions</div>
+          </div>
+          <div class="card ai-health-card">
+            <div class="ai-health-card__value" id="health-generated">–</div>
+            <div class="ai-health-card__label">Insights Generated</div>
+          </div>
+        </div>
+
+        <div class="card generate-panel">
+          <h3 style="margin-bottom:var(--space-4);">Generate New Insight</h3>
+          <div class="generate-panel__controls">
+            <div class="field">
+              <label for="insight-product-select">Product</label>
+              <select id="insight-product-select">
+                <option value="">Select a product…</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="generate-insight-btn">✨ Generate Insight</button>
+          </div>
+          <div id="insight-result-wrap" style="margin-top:var(--space-5);"></div>
+        </div>
+
+        <div class="report-section">
+          <div class="report-section__header">
+            <div>
+              <h3>Priority Recommendations</h3>
+              <p class="text-secondary">Products that need restocking soon, based on recent sales pace</p>
+            </div>
+          </div>
+          <div id="priority-suggestions-wrap"></div>
+        </div>
+
+        <div class="report-section">
+          <div class="report-section__header">
+            <div>
+              <h3>Recommendation History</h3>
+              <p class="text-secondary">Past AI-generated insights</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="history-table-wrap">
+            <div class="table-loading">Loading history…</div>
+          </div>
+          <div class="table-pagination" id="history-pagination"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="js/ai-insights.js"></script>
+</body>
+</html>

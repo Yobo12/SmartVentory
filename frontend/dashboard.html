@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/onboarding.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.js.iife.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="app-main">
+      <header class="header" id="header-root"></header>
+
+      <main class="page-content">
+
+        <!-- ============ Hero: AI Command Center ============ -->
+        <section class="hero-command">
+          <div class="hero-command__ambient" aria-hidden="true"></div>
+          <div class="hero-command__sweep" aria-hidden="true"></div>
+          <div class="hero-command__particles" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span>
+          </div>
+
+          <div class="hero-command__greeting">
+            <h1 class="hero-command__greeting-text hero-enter" style="--enter-delay: 0ms;">
+              <span id="greeting-prefix">Good Morning,</span><br />
+              <span id="greeting-name" class="hero-command__greeting-name">there</span>
+            </h1>
+            <p class="hero-command__subtitle hero-enter" id="hero-subtitle-text" style="--enter-delay: 260ms;">SmartVentory AI is warming up…</p>
+          </div>
+
+          <div class="hero-command__clock-panel hero-enter-scale" style="--enter-delay: 380ms;">
+            <div class="hero-command__reflection" aria-hidden="true"></div>
+            <div class="hero-command__live-row">
+              <span class="hero-command__live-dot"></span>
+              <span>LIVE SYSTEM TIME</span>
+            </div>
+            <div class="hero-command__time" id="hero-clock-time" aria-live="off">
+              <span id="clock-h">00</span><span class="hero-command__colon">:</span><span id="clock-m">00</span><span class="hero-command__colon">:</span><span id="clock-s">00</span>
+            </div>
+            <div class="hero-command__tz" id="hero-tz-line">—</div>
+            <div class="hero-command__date">
+              <div id="hero-day">—</div>
+              <div id="hero-date-full">—</div>
+            </div>
+            <div class="hero-command__status">
+              <span class="hero-command__status-dot"></span>
+              <span id="ai-status-rotator">Monitoring inventory</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ Quick Actions ============ -->
+        <section class="quick-actions fade-in">
+          <a class="quick-action" href="products.html">
+            <span class="quick-action__icon">📦</span>
+            <span>Add Product</span>
+          </a>
+          <a class="quick-action" href="sales.html">
+            <span class="quick-action__icon">💵</span>
+            <span>Record Sale</span>
+          </a>
+          <a class="quick-action" href="purchases.html">
+            <span class="quick-action__icon">🚚</span>
+            <span>Receive Stock</span>
+          </a>
+          <a class="quick-action" href="ai-insights.html">
+            <span class="quick-action__icon">✨</span>
+            <span>Generate AI Insight</span>
+          </a>
+          <a class="quick-action" href="reports.html">
+            <span class="quick-action__icon">📊</span>
+            <span>Export Report</span>
+          </a>
+        </section>
+
+        <!-- ============ KPI grid (existing, restyled) ============ -->
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <!-- ============ AI Command Center + Revenue Goal ============ -->
+        <div class="command-row">
+          <div class="card ai-command-center">
+            <div class="ai-command-center__header">
+              <div class="ai-command-center__title">
+                <span class="neural-orb neural-orb--sm"><div class="neural-orb__ring"></div><div class="neural-orb__core"></div><div class="neural-orb__node"></div></span>
+                <div>
+                  <h3>AI Command Center</h3>
+                  <p class="text-secondary" id="ai-status-text">Monitoring…</p>
+                </div>
+              </div>
+              <a href="ai-insights.html" class="btn btn-primary btn-sm">✨ Generate Insight</a>
+            </div>
+
+            <div class="ai-command-center__score">
+              <div class="health-score-ring" id="health-score-ring">
+                <span id="health-score-value">–</span>
+              </div>
+              <div class="health-score-legend" id="health-score-legend"></div>
+            </div>
+
+            <div class="ai-command-center__latest">
+              <div class="ai-command-center__latest-label">Latest recommendation</div>
+              <div id="ai-carousel-wrap" class="ai-carousel">
+                <div class="skeleton" style="height:64px;border-radius:var(--radius-sm);"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card revenue-goal-card">
+            <h3 style="margin-bottom:var(--space-2);">Monthly Revenue Goal</h3>
+            <p class="text-secondary" style="margin-bottom:var(--space-5);">Target is set locally in your browser — SmartVentory's backend has no goals feature yet.</p>
+            <div class="revenue-goal__amount" id="revenue-goal-current">$0.00</div>
+            <div class="revenue-goal__bar-track">
+              <div class="revenue-goal__bar-fill" id="revenue-goal-bar"></div>
+            </div>
+            <div class="revenue-goal__footer">
+              <span id="revenue-goal-pct">0% of goal</span>
+              <button class="btn btn-ghost btn-sm" id="edit-goal-btn">Edit target</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ Charts (existing, restyled) ============ -->
+        <div class="chart-grid">
+          <div class="card">
+            <div class="chart-card__header">
+              <div>
+                <h3>Top-Selling Products</h3>
+                <p class="text-secondary">By revenue, last 30 days</p>
+              </div>
+            </div>
+            <div class="chart-card__canvas-wrap" id="top-products-chart-wrap">
+              <div class="skeleton" style="height:100%;border-radius:var(--radius-md);"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="chart-card__header">
+              <div>
+                <h3>Inventory Value</h3>
+                <p class="text-secondary">By category</p>
+              </div>
+            </div>
+            <div class="chart-card__canvas-wrap" id="category-chart-wrap">
+              <div class="skeleton" style="height:100%;border-radius:var(--radius-md);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ Inventory Health + Activity Timeline + Profile ============ -->
+        <div class="bottom-row">
+          <div class="card">
+            <h3 style="margin-bottom:var(--space-5);">Inventory Health</h3>
+            <div id="inventory-health-wrap">
+              <div class="skeleton" style="height:140px;border-radius:var(--radius-sm);"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-bottom:var(--space-5);">Recent Activity</h3>
+            <div id="activity-timeline-wrap">
+              <div class="skeleton" style="height:200px;border-radius:var(--radius-sm);"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-bottom:var(--space-5);">Your Profile</h3>
+            <div id="profile-card-wrap">
+              <div class="skeleton" style="height:140px;border-radius:var(--radius-sm);"></div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

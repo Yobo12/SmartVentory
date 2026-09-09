@@ -1,0 +1,57 @@
+/* ============================================================
+   SmartVentory — AI Insights
+   ============================================================ */
+
+.ai-health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.ai-health-card {
+  text-align: center;
+}
+
+.ai-health-card__value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ai-health-card__label {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: var(--space-2);
+}
+
+.generate-panel {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
+  border: 1px solid var(--border-strong);
+  margin-bottom: var(--space-8);
+}
+
+.generate-panel__controls {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.generate-panel__controls .field {
+  flex: 1;
+  min-width: 240px;
+}
+
+@media (max-width: 900px) {
+  .ai-health-grid {
+    grid-template-columns: 1fr;
+  }
+}

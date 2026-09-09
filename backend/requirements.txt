@@ -1,0 +1,19 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+alembic==1.14.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+email-validator==2.2.0
+python-dotenv==1.0.1
+
+# Auth (Phase 3) — included now so requirements.txt doesn't change mid-project
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.20
+
+# Testing (Phase 9) — included now for the same reason
+pytest==8.3.4
+httpx==0.28.1  # also used at runtime by services/gemini_client.py (Phase 7)

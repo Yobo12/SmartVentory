@@ -1,0 +1,25 @@
+# Environments
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Uploaded files (keep the folder, ignore its contents)
+uploads/*
+!uploads/.gitkeep
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Alembic (keep versions/, ignore nothing special for now)

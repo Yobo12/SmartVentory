@@ -1,0 +1,416 @@
+/* ============================================================
+   SmartVentory — Shared Components
+   Consumes tokens from main.css. Every page pulls from here for
+   buttons, cards, badges, toasts, skeletons, and the neural orb.
+   ============================================================ */
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 40px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              background var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dim) 100%);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-glow-primary);
+  transform: translateY(-1px) scale(1.015);
+}
+
+.btn-secondary {
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+.btn-danger {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid rgba(239, 68, 68, 0.24);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon.btn-sm {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+/* ============================================================
+   Badges
+   ============================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 22px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.badge-success { color: var(--success); background: var(--success-bg); }
+.badge-warning { color: var(--warning); background: var(--warning-bg); }
+.badge-danger  { color: var(--danger);  background: var(--danger-bg); }
+.badge-neutral { color: var(--text-secondary); background: var(--surface-hover); }
+
+/* ============================================================
+   Toasts
+   ============================================================ */
+
+.toast-container {
+  position: fixed;
+  top: var(--space-6);
+  right: var(--space-6);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 300px;
+  max-width: 380px;
+  padding: var(--space-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+  color: var(--text-primary);
+  animation: toast-in var(--duration-base) var(--ease-out);
+}
+
+.toast-success { border-left-color: var(--success); }
+.toast-danger  { border-left-color: var(--danger); }
+.toast-warning { border-left-color: var(--warning); }
+
+.toast-exit {
+  animation: toast-out var(--duration-base) var(--ease-out) forwards;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(24px); }
+}
+
+/* ============================================================
+   Skeletons (loading placeholders)
+   ============================================================ */
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  animation: skeleton-shimmer 1.6s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================================
+   Fade-in (section entrances)
+   ============================================================ */
+
+.fade-in {
+  animation: fade-in-up var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Neural Orb — signature visual element
+   Replaces the brief's original Spline 3D object: Claude cannot
+   author Spline scenes (external web editor/account required),
+   so a self-contained CSS/JS orb was built instead. See handover
+   Section 15. Swap-in point for a real Spline embed later: drop
+   an <iframe> inside #neural-orb, remove this block's children.
+   ============================================================ */
+
+.neural-orb {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+
+.neural-orb--sm {
+  width: 40px;
+  height: 40px;
+}
+
+.neural-orb__core {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--primary), var(--accent), var(--primary));
+  filter: blur(0.5px);
+  box-shadow: var(--shadow-glow-accent);
+  animation: orb-rotate 14s linear infinite;
+}
+
+.neural-orb--sm .neural-orb__core {
+  animation-duration: 28s;
+}
+
+.neural-orb__core::after {
+  content: '';
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: var(--bg);
+  filter: blur(6px);
+  opacity: 0.55;
+}
+
+.neural-orb__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  animation: orb-pulse 3.6s ease-in-out infinite;
+}
+
+.neural-orb__ring:nth-child(2) {
+  inset: 8%;
+  border-color: rgba(6, 182, 212, 0.22);
+  animation-delay: 0.6s;
+}
+
+.neural-orb__ring:nth-child(3) {
+  inset: -8%;
+  border-color: rgba(59, 130, 246, 0.14);
+  animation-delay: 1.2s;
+}
+
+.neural-orb__node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  top: 50%;
+  left: 50%;
+  animation: node-orbit 9s linear infinite;
+}
+
+.neural-orb--sm .neural-orb__node {
+  width: 3px;
+  height: 3px;
+  animation-duration: 16s;
+}
+
+.neural-orb__node:nth-child(4) { animation-delay: 0s; }
+.neural-orb__node:nth-child(5) { animation-delay: -3s; animation-duration: 11s; }
+.neural-orb__node:nth-child(6) { animation-delay: -6s; animation-duration: 7.5s; }
+
+@keyframes orb-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%      { transform: scale(1.04); opacity: 1; }
+}
+
+@keyframes node-orbit {
+  from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+}
+
+.neural-orb--sm .neural-orb__node {
+  animation-name: node-orbit-sm;
+}
+
+@keyframes node-orbit-sm {
+  from { transform: rotate(0deg) translateX(19px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(19px) rotate(-360deg); }
+}
+
+/* ============================================================
+   Modals — create/edit forms for every CRUD page
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fade-in-up var(--duration-base) var(--ease-out);
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+
+.modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__close:hover {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.modal__body {
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--border);
+}

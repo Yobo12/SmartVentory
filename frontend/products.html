@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/tables.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="app-main">
+      <header class="header" id="header-root"></header>
+
+      <main class="page-content">
+        <div class="table-toolbar fade-in">
+          <div class="table-search">
+            🔍
+            <input type="text" id="products-search" placeholder="Search by name or SKU…" />
+          </div>
+
+          <select class="table-filter" id="products-status-filter">
+            <option value="all">All statuses</option>
+            <option value="active">Active only</option>
+          </select>
+
+          <div class="table-toolbar__spacer"></div>
+
+          <button class="btn btn-primary" id="add-product-btn">+ Add Product</button>
+        </div>
+
+        <div class="table-wrap" id="products-table-wrap">
+          <div class="table-loading">Loading products…</div>
+        </div>
+
+        <div class="table-pagination" id="products-pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="js/products.js"></script>
+</body>
+</html>

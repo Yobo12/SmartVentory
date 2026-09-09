@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/tables.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/reports.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="app-main">
+      <header class="header" id="header-root"></header>
+
+      <main class="page-content">
+        <div class="date-range-bar fade-in">
+          <div class="field">
+            <label for="report-start-date">From</label>
+            <input type="date" id="report-start-date" />
+          </div>
+          <div class="field">
+            <label for="report-end-date">To</label>
+            <input type="date" id="report-end-date" />
+          </div>
+          <button class="btn btn-primary" id="report-apply-range">Apply</button>
+        </div>
+
+        <div class="summary-cards">
+          <div class="card">
+            <h3 style="margin-bottom:var(--space-4);">Sales Summary</h3>
+            <div class="summary-stats-grid" id="sales-summary"></div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom:var(--space-4);">Purchases Summary</h3>
+            <div class="summary-stats-grid" id="purchases-summary"></div>
+          </div>
+        </div>
+
+        <div class="report-section">
+          <div class="report-section__header">
+            <div>
+              <h3>Top-Selling Products</h3>
+              <p class="text-secondary">By revenue, for the selected date range</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="download-performance-btn">⬇ Download CSV</button>
+          </div>
+          <div class="card" style="margin-bottom: var(--space-5);">
+            <div class="chart-card__canvas-wrap" id="performance-chart-wrap"></div>
+          </div>
+          <div class="table-wrap" id="performance-table-wrap"></div>
+        </div>
+
+        <div class="report-section">
+          <div class="report-section__header">
+            <div>
+              <h3>Inventory Valuation</h3>
+              <p class="text-secondary" id="inventory-report-total">Current stock snapshot</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="download-inventory-btn">⬇ Download CSV</button>
+          </div>
+          <div class="table-wrap" id="inventory-report-wrap"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="js/reports.js"></script>
+</body>
+</html>

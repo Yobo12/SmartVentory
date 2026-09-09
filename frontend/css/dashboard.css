@@ -1,0 +1,958 @@
+/* ============================================================
+   SmartVentory — Dashboard
+   ============================================================ */
+
+.dashboard-greeting {
+  margin-bottom: var(--space-8);
+}
+
+.dashboard-greeting h2 {
+  margin-bottom: var(--space-1);
+}
+
+/* --- KPI grid --- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.kpi-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.kpi-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+
+.kpi-card__label {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.kpi-card__value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.kpi-card__value.text-mono {
+  font-family: var(--font-mono);
+  font-size: 22px;
+}
+
+/* --- Charts --- */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.chart-card__header p {
+  font-size: 12.5px;
+}
+
+.chart-card__canvas-wrap {
+  position: relative;
+  height: 280px;
+}
+
+.chart-empty {
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 0 var(--space-6);
+}
+
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   Dashboard v2 additions
+   ============================================================ */
+
+/* --- Hero --- */
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.hero__text h1 {
+  margin-bottom: var(--space-2);
+}
+
+.hero__datetime {
+  margin-top: var(--space-3);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Reserved for a future Spline embed — intentionally empty/invisible
+   until that scene exists. Kept in normal flow so the hero's height
+   doesn't jump when it's added later. */
+.hero__spline-slot {
+  width: 160px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero__spline-slot {
+    display: none;
+  }
+}
+
+/* --- Quick Actions --- */
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: transform var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+}
+
+.quick-action:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  color: var(--text-primary);
+}
+
+.quick-action__icon {
+  font-size: 22px;
+}
+
+@media (max-width: 900px) {
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- KPI card extras: trend row + sparkline placeholder --- */
+
+.kpi-card__trend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.kpi-card__sparkline {
+  opacity: 0.7;
+}
+
+.kpi-card__description {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* --- Command row: AI Command Center + Revenue Goal --- */
+
+.command-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.ai-command-center__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.ai-command-center__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ai-command-center__score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.health-score-ring {
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  background: conic-gradient(var(--success) calc(var(--score, 0) * 1%), var(--surface-hover) 0);
+  position: relative;
+}
+
+.health-score-ring::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.health-score-ring span {
+  position: relative;
+  z-index: 1;
+}
+
+.health-score-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.health-score-legend__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.health-score-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.ai-command-center__latest-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.ai-carousel {
+  position: relative;
+  min-height: 64px;
+}
+
+.ai-carousel__item {
+  padding: var(--space-4);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-primary);
+  animation: fade-in-up var(--duration-slow) var(--ease-out);
+}
+
+.ai-carousel__dots {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.ai-carousel__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--surface-hover);
+  transition: background var(--duration-base) var(--ease-out);
+}
+
+.ai-carousel__dot--active {
+  background: var(--primary);
+}
+
+/* --- Revenue Goal --- */
+
+.revenue-goal__amount {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.revenue-goal__bar-track {
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+
+.revenue-goal__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width var(--duration-slow) var(--ease-out);
+}
+
+.revenue-goal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+/* --- Bottom row: Inventory Health / Activity / Profile --- */
+
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-5);
+}
+
+@media (max-width: 1200px) {
+  .command-row {
+    grid-template-columns: 1fr;
+  }
+  .bottom-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.health-tier-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  font-size: 13px;
+}
+
+.health-tier-row__bar-track {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  margin: 0 var(--space-3);
+  overflow: hidden;
+}
+
+.health-tier-row__bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+/* --- Activity timeline --- */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-item {
+  display: flex;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item__icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.timeline-item__text {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.timeline-item__time {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* --- Profile card --- */
+
+.profile-card__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.profile-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 700;
+}
+
+.profile-card__stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--border);
+}
+
+/* --- Empty states --- */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--text-muted);
+}
+
+.empty-state__icon {
+  font-size: 32px;
+  margin-bottom: var(--space-3);
+}
+
+.empty-state__text {
+  font-size: 13px;
+}
+
+/* ============================================================
+   Hero: AI Command Center (v3)
+   Replaces the plain hero. GPU-friendly only: transform + opacity
+   animations, no layout-thrashing properties animated.
+   ============================================================ */
+
+.hero-command {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
+  border: 1px solid var(--border-strong);
+}
+
+/* Animated gradient border glow — a pseudo-element ring behind the
+   card, blurred and slowly rotating. Purely decorative, GPU-only. */
+.hero-command::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--border-angle, 0deg), rgba(59,130,246,0.5), rgba(6,182,212,0.35), rgba(59,130,246,0.5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: hero-border-spin 8s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes hero-border-spin {
+  to { --border-angle: 360deg; }
+}
+
+/* --- Floating particles: a handful of soft dots drifting slowly --- */
+
+.hero-command__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-command__particles span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.35;
+  animation: particle-drift 14s ease-in-out infinite;
+}
+
+.hero-command__particles span:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; animation-duration: 12s; }
+.hero-command__particles span:nth-child(2) { top: 60%; left: 30%; animation-delay: -3s; animation-duration: 16s; }
+.hero-command__particles span:nth-child(3) { top: 35%; left: 55%; animation-delay: -6s; animation-duration: 13s; }
+.hero-command__particles span:nth-child(4) { top: 75%; left: 70%; animation-delay: -9s; animation-duration: 18s; }
+.hero-command__particles span:nth-child(5) { top: 15%; left: 85%; animation-delay: -1s; animation-duration: 15s; }
+
+@keyframes particle-drift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+  50% { transform: translate(12px, -16px); opacity: 0.5; }
+}
+
+/* --- Greeting side --- */
+
+.hero-command__greeting {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-command__greeting-text {
+  font-size: 30px;
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+}
+
+.hero-command__greeting-name {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-command__subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 440px;
+  min-height: 21px;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.hero-command__subtitle.is-fading {
+  opacity: 0;
+}
+
+/* --- Clock panel --- */
+
+.hero-command__clock-panel {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 260px;
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: rgba(19, 30, 51, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 24px rgba(59, 130, 246, 0.08);
+  animation: hero-panel-float 6s ease-in-out infinite;
+}
+
+@keyframes hero-panel-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.hero-command__live-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.hero-command__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+}
+
+.hero-command__time {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.hero-command__colon {
+  display: inline-block;
+  animation: colon-pulse 1s ease-in-out infinite;
+  color: var(--accent);
+}
+
+@keyframes colon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.hero-command__tz {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+}
+
+.hero-command__date {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-command__date div:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.hero-command__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-height: 16px;
+}
+
+.hero-command__status span:last-child {
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+
+.hero-command__status span:last-child.is-fading {
+  opacity: 0;
+  transform: translateX(4px);
+}
+
+.hero-command__status-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+@media (max-width: 900px) {
+  .hero-command {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-command__clock-panel {
+    width: 100%;
+  }
+}
+
+/* Respect reduced-motion globally (main.css already disables most
+   animation durations under this query — these two extra properties
+   aren't covered by that generic rule since they're on ::before /
+   custom properties, so restated here explicitly). */
+@media (prefers-reduced-motion: reduce) {
+  .hero-command::before,
+  .hero-command__particles span,
+  .hero-command__clock-panel {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Hero polish pass (v2) — layers on top of the v1 hero-command
+   rules above. Kept as a separate block (rather than rewritten
+   inline) so the diff against v1 stays traceable.
+   ============================================================ */
+
+.hero-command {
+  position: relative;
+  min-height: 240px;
+  padding: var(--space-8) calc(var(--space-8) + var(--space-2));
+  align-items: center;
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.06), var(--shadow-md);
+}
+
+/* --- Entrance animation: staggered, ~1s total --- */
+
+.hero-enter {
+  animation: hero-enter-fade 700ms var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.hero-enter-scale {
+  animation: hero-enter-scale-in 700ms var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+@keyframes hero-enter-fade {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-enter-scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Living background: mesh gradient + radar pulse + light sweep --- */
+
+.hero-command__ambient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 420px 260px at 15% 20%, rgba(59, 130, 246, 0.14), transparent 60%),
+    radial-gradient(ellipse 380px 240px at 85% 75%, rgba(6, 182, 212, 0.12), transparent 60%),
+    radial-gradient(ellipse 300px 300px at 60% 10%, rgba(59, 130, 246, 0.08), transparent 65%);
+  background-size: 140% 140%;
+  animation: mesh-drift 22s ease-in-out infinite;
+}
+
+@keyframes mesh-drift {
+  0%, 100% { background-position: 0% 0%, 100% 100%, 50% 0%; }
+  50%      { background-position: 8% 6%, 92% 94%, 44% 8%; }
+}
+
+/* Radar pulse — an expanding, fading ring, very infrequent so it reads
+   as "occasional" rather than a loop you consciously notice. */
+.hero-command__ambient::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 78%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  animation: radar-pulse 9s ease-out infinite;
+}
+
+@keyframes radar-pulse {
+  0%   { transform: scale(1); opacity: 0.5; }
+  70%  { opacity: 0; }
+  100% { transform: scale(7); opacity: 0; }
+}
+
+/* Light sweep — a soft diagonal band that crosses the hero slowly,
+   every ~26s, then stays offscreen the rest of the time. */
+.hero-command__sweep {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hero-command__sweep::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -30%;
+  width: 30%;
+  height: 140%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transform: rotate(8deg);
+  animation: light-sweep 26s ease-in-out infinite;
+}
+
+@keyframes light-sweep {
+  0%, 92%, 100% { transform: translateX(-40vw) rotate(8deg); }
+  46%           { transform: translateX(140vw) rotate(8deg); }
+}
+
+/* --- Particles: brighter "nodes" among the plain dots --- */
+
+.hero-command__particles span:nth-child(6),
+.hero-command__particles span:nth-child(7) {
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  opacity: 0.5;
+}
+.hero-command__particles span:nth-child(6) { top: 45%; left: 42%; animation-delay: -4s; animation-duration: 17s; }
+.hero-command__particles span:nth-child(7) { top: 25%; left: 68%; animation-delay: -7s; animation-duration: 20s; }
+
+/* --- Greeting: gradient name, animated underline, glow --- */
+
+.hero-command__greeting-text {
+  font-size: 32px;
+}
+
+.hero-command__greeting-name {
+  position: relative;
+  font-size: 1.25em;
+  font-weight: 700;
+  text-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
+  display: inline-block;
+}
+
+.hero-command__greeting-name::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underline-grow 900ms var(--ease-out) 550ms both;
+}
+
+@keyframes underline-grow {
+  to { transform: scaleX(1); }
+}
+
+/* --- Clock panel: bigger digits, breathing glow, moving reflection --- */
+
+.hero-command__clock-panel {
+  width: 280px;
+  padding: 24px 32px 40px 32px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  overflow: hidden;
+  animation: hero-panel-float 6s ease-in-out infinite, hero-panel-breathe 5s ease-in-out infinite;
+}
+
+@keyframes hero-panel-breathe {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 24px rgba(59,130,246,0.08); }
+  50%      { box-shadow: 0 8px 36px rgba(0,0,0,0.28), 0 0 36px rgba(59,130,246,0.16); }
+}
+
+.hero-command__reflection {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: skewX(-20deg);
+  animation: reflection-sweep 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes reflection-sweep {
+  0%, 85%, 100% { left: -60%; }
+  45%           { left: 130%; }
+}
+
+.hero-command__time {
+  position: relative;
+  font-size: 40px;
+  z-index: 1;
+}
+
+.hero-command__live-row,
+.hero-command__tz,
+.hero-command__date,
+.hero-command__status {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-command {
+    min-height: 0;
+    padding: var(--space-6);
+  }
+}

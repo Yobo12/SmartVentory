@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in — SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    /* Page-specific layout only — nothing here duplicates a token
+       or a component already defined in main.css/components.css. */
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    /* --- Left: brand / orb panel --- */
+    .login-brand {
+      position: relative;
+      flex: 1.15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-16);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(59, 130, 246, 0.16), transparent 55%),
+        var(--bg);
+    }
+
+    .login-brand__mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      position: absolute;
+      top: var(--space-10);
+      left: var(--space-10);
+    }
+
+    .login-brand__mark-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .login-brand__mark-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .login-brand__orb-wrap {
+      margin-bottom: var(--space-10);
+    }
+
+    .login-brand__headline {
+      text-align: center;
+      max-width: 420px;
+    }
+
+    .login-brand__headline h1 {
+      font-size: 26px;
+      margin-bottom: var(--space-3);
+    }
+
+    .login-brand__headline p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .login-brand__tags {
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+      margin-top: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    /* --- Right: glassmorphism form panel --- */
+    .login-form-panel {
+      flex: 1;
+      min-width: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-6);
+      position: relative;
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.05), transparent 40%);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      padding: var(--space-10) var(--space-8);
+      border-radius: var(--radius-lg);
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid var(--border-strong);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .login-card__heading {
+      margin-bottom: var(--space-8);
+    }
+
+    .login-card__heading h2 {
+      margin-bottom: var(--space-2);
+    }
+
+    .login-card__heading p {
+      font-size: 13px;
+    }
+
+    .field {
+      margin-bottom: var(--space-5);
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .field input {
+      width: 100%;
+      height: 44px;
+      padding: 0 var(--space-4);
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: border-color var(--duration-base) var(--ease-out),
+                  box-shadow var(--duration-base) var(--ease-out);
+    }
+
+    .field input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .field input:focus-visible {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    }
+
+    .field input[aria-invalid="true"] {
+      border-color: var(--danger);
+    }
+
+    .field-error {
+      display: none;
+      margin-top: var(--space-2);
+      font-size: 12px;
+      color: var(--danger);
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .login-alert {
+      display: none;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-5);
+      background: var(--danger-bg);
+      border: 1px solid rgba(239, 68, 68, 0.24);
+      border-radius: var(--radius-sm);
+      color: var(--danger);
+      font-size: 13px;
+    }
+
+    .login-alert.visible {
+      display: flex;
+    }
+
+    .login-card__submit {
+      margin-top: var(--space-2);
+    }
+
+    .btn-spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .is-loading .btn-spinner {
+      display: inline-block;
+    }
+
+    .is-loading .btn-label {
+      opacity: 0.7;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .login-brand {
+        display: none;
+      }
+      .login-form-panel {
+        min-width: 0;
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-screen">
+
+    <!-- Left: neural orb + brand -->
+    <section class="login-brand">
+      <div class="login-brand__mark">
+        <span class="login-brand__mark-dot"></span>
+        <span class="login-brand__mark-name">SmartVentory</span>
+      </div>
+
+      <div class="login-brand__orb-wrap fade-in" id="neural-orb">
+        <div class="neural-orb">
+          <div class="neural-orb__ring"></div>
+          <div class="neural-orb__ring"></div>
+          <div class="neural-orb__ring"></div>
+          <div class="neural-orb__core"></div>
+          <div class="neural-orb__node"></div>
+          <div class="neural-orb__node"></div>
+          <div class="neural-orb__node"></div>
+        </div>
+      </div>
+
+      <div class="login-brand__headline fade-in">
+        <h1>Inventory, understood.</h1>
+        <p>SmartVentory tracks stock, sales, and purchases in one place, and layers AI-generated recommendations on top so you know what to reorder before you run out.</p>
+        <div class="login-brand__tags">
+          <span class="badge badge-neutral">AI-Powered</span>
+          <span class="badge badge-neutral">Real-Time Stock</span>
+          <span class="badge badge-neutral">Built for SMEs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: glassmorphism login card -->
+    <section class="login-form-panel">
+      <div class="login-card fade-in">
+        <div class="login-card__heading">
+          <h2>Welcome back</h2>
+          <p class="text-secondary">Sign in to your SmartVentory account.</p>
+        </div>
+
+        <div class="login-alert" id="login-alert" role="alert">
+          <span id="login-alert-text"></span>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.com"
+              autocomplete="username"
+              required
+            />
+            <div class="field-error" id="email-error">Enter a valid email address.</div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <div class="field-error" id="password-error">Enter your password.</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block login-card__submit" id="login-submit">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span class="btn-label">Sign in</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module">
+    import { login, isAuthenticated } from './js/auth.js';
+    import { ApiError } from './js/api.js';
+
+    // Already logged in? Skip the login screen entirely.
+    if (isAuthenticated()) {
+      window.location.href = 'dashboard.html';
+    }
+
+    const form = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const submitBtn = document.getElementById('login-submit');
+    const alertBox = document.getElementById('login-alert');
+    const alertText = document.getElementById('login-alert-text');
+
+    function showAlert(message) {
+      alertText.textContent = message;
+      alertBox.classList.add('visible');
+    }
+
+    function hideAlert() {
+      alertBox.classList.remove('visible');
+    }
+
+    function setFieldError(input, errorEl, show) {
+      input.setAttribute('aria-invalid', show ? 'true' : 'false');
+      errorEl.classList.toggle('visible', show);
+    }
+
+    function validate() {
+      let valid = true;
+
+      const emailValid = emailInput.value.trim().length > 0 && emailInput.checkValidity();
+      setFieldError(emailInput, emailError, !emailValid);
+      if (!emailValid) valid = false;
+
+      const passwordValid = passwordInput.value.length > 0;
+      setFieldError(passwordInput, passwordError, !passwordValid);
+      if (!passwordValid) valid = false;
+
+      return valid;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      hideAlert();
+
+      if (!validate()) return;
+
+      submitBtn.classList.add('is-loading');
+      submitBtn.disabled = true;
+
+      try {
+        await login(emailInput.value.trim(), passwordInput.value);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        if (err instanceof ApiError && err.status === 401) {
+          showAlert('Incorrect email or password.');
+        } else if (err instanceof ApiError && err.status === 403) {
+          showAlert('This account has been deactivated. Contact your administrator.');
+        } else if (err instanceof ApiError) {
+          showAlert(err.detail || 'Something went wrong. Please try again.');
+        } else {
+          showAlert('Could not reach the server. Check your connection and try again.');
+        }
+      } finally {
+        submitBtn.classList.remove('is-loading');
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Clear field-level errors as the user corrects them.
+    emailInput.addEventListener('input', () => setFieldError(emailInput, emailError, false));
+    passwordInput.addEventListener('input', () => setFieldError(passwordInput, passwordError, false));
+  </script>
+</body>
+</html>

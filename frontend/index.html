@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartVentory</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    /* Minimal — this page is only ever visible for a split second
+       before the redirect fires. */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="neural-orb neural-orb--sm">
+    <div class="neural-orb__ring"></div>
+    <div class="neural-orb__core"></div>
+    <div class="neural-orb__node"></div>
+  </div>
+
+  <script type="module">
+    import { isAuthenticated } from './js/auth.js';
+    window.location.replace(isAuthenticated() ? 'dashboard.html' : 'login.html');
+  </script>
+</body>
+</html>
