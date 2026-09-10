@@ -17,8 +17,11 @@
  *     should treat this as "log the user out", not retry.
  */
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
-
+const API_BASE_URL =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+        ? 'http://127.0.0.1:8000/api/v1'
+        : 'https://smartventory-backend.onrender.com/api/v1';
 /** Thrown for any non-2xx response. Carries the HTTP status and the
  *  backend's own `detail` message (FastAPI's standard error shape)
  *  so callers can show something meaningful instead of a generic error. */
